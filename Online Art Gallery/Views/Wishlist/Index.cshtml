@@ -1,0 +1,119 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Wishlists = (List<Wishlist>)ViewData["wishlists"];
+}
+<!-- START PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>WishList</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">WishList page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BANNER SECTION -->
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-80">
+    <div class="container">
+        <div class="title-eltdf pb-100">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">History of art department</p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        Wishlist
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <form action="#">
+                <div class="col-xs-12">
+                    @if (Wishlists.Count() > 0)
+                    {
+
+                        <div class="wishlist-table table-responsive mb-40">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th class="pro-remove">Remove</th>
+                                        <th class="pro-thumbnail">Image</th>
+                                        <th class="pro-title">Product</th>
+                                        <th class="pro-price">Unit Price</th>
+                                        <th class="pro-stock-stauts">Stock Stauts</th>
+                                        <th class="pro-add-to-cart">Add to Cart</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var wishlist in Wishlists)
+                                    {
+                                        foreach (var artwork in ViewData["artworks"] as List<Artwork>)
+                                        {
+                                            int id_user = int.Parse(Session["Id"].ToString());
+
+                                            if (wishlist.Id_Artwork == artwork.Id && wishlist.Id_User == id_user)
+                                            {
+                                                <tr>
+                                                    <td class="pro-remove"><a href="@Url.Action("Delete","Wishlist", new { id = wishlist.Id })">×</a></td>
+                                                    <td class="pro-thumbnail"><a href="@Url.Action("Detail","Artwork", new { id = artwork.Id })"><img src="~/Content/Images/Artwork/@artwork.Picture" alt="" /></a></td>
+                                                    <td class="pro-title"><a href="@Url.Action("Detail","Artwork", new { id = artwork.Id })">@artwork.Name</a></td>
+                                                    @if (artwork.Sale_Price > 0)
+                                                    {
+                                                        <td class="pro-price"><span class="amount">$ @artwork.Sale_Price.00</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="pro-price"><span class="amount">$ @artwork.Price.00</span></td>
+                                                    }
+                                                    @if (artwork.Status == true)
+                                                    {
+                                                        <td class="pro-stock-stauts"><span class="in-stock">in stock</span></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td class="pro-stock-stauts"><span class="out-stock">out stock</span></td>
+                                                    }
+                                                    <td class="pro-add-to-cart"><a href="@Url.Action("Add","Cart", new { id = artwork.Id })" class="add-to-cart">add to cart</a></td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="no-data-item">
+                            <div class="no-data-icon">
+                                <img src="~/Layout/Art Gallery/img/nodata.png" alt="Alternate Text" width="100px" height="100px" />
+                            </div>
+                            <div class="no-data-text">
+                                No Data Item
+                            </div>
+                        </div>
+                    }
+                </div>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-7 col-12">
+                <div class="cart-buttons mb-30">
+                    <a href="@Url.Action("Index","Artwork")">Continue Shopping</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->

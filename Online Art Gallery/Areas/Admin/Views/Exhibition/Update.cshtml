@@ -1,0 +1,175 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    /**/
+
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Exhibition exhibition = ViewBag.Exhibition;
+
+    DateTime date_start = Convert.ToDateTime(exhibition.Start_Date);
+    DateTime date_end = Convert.ToDateTime(exhibition.End_Date);
+}
+
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Exhibition</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Exhibition")">Exhibition</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Update</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-lg-8 col-12 mx-auto">
+            <div class="card">
+                <div class="card-header card-header-form">
+                    <h5>Exhibition Update </h5>
+                </div>
+                <div class="card-body">
+                    <form action="@Url.Action("Update", "Exhibition")" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="col-12 d-none">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    <input name="id" type="text" class="form-control" id="Name" placeholder="" value="@exhibition.Id">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@exhibition.Name">
+                                    @if (TempData["name-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["name-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group fill">
+                                    <label class="floating-label" for="Icon"> Image</label>
+                                    <div class="img-detail">
+                                        <img src="~/Content/Images/Exhibition/@exhibition.Picture" width="200px" height="200px" alt="Alternate Text" />
+                                    </div>
+                                    <input name="picture" type="file" class="form-control">
+                                    @if (TempData["picture-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["picture-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group fill">
+                                    <label class="floating-label" for="Start_Date">Start Date</label>
+                                    <input name="start_date" type="date" class="form-control" id="Start_Date" placeholder="" value="@exhibition.Start_Date">
+                                    @if (TempData["start_date-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["start_date-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group fill">
+                                    <label class="floating-label" for="End_Date">End Date</label>
+                                    <input name="end_date" type="date" class="form-control" id="End_Date" placeholder="" value="@exhibition.End_Date">
+                                    @if (TempData["end_date-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["end_date-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Starting_Price">Starting Price</label>
+                                    <input name="starting_price" type="number" class="form-control" id="Starting_Price" placeholder="" value="@exhibition.Starting_Price">
+                                    @if (TempData["starting_price-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["starting_price-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Address">Address</label>
+                                    <input name="address" type="text" class="form-control" id="Address" placeholder="" value="@exhibition.Address">
+                                    @if (TempData["address-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["address-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Detail">Detail</label>
+                                    <textarea name="detail" class="form-control" id="Detail" rows="3">@Html.Raw(exhibition.Detail)</textarea>
+                                    @if (TempData["detail-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["detail-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Descreption">Descreption</label>
+                                    <textarea name="descreption" class="form-control" id="Descreption" rows="3">@exhibition.Descreption</textarea>
+                                    @if (TempData["descreption-validation"] != null)
+                                    {
+                                        <span class="required">@TempData["descreption-validation"]</span>
+                                    }
+                                </div>
+                            </div>
+                            @if (@exhibition.Status == true)
+                            {
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label class="floating-label" for="Status"> Status</label>
+                                        <select name="status" class="form-control" id="Status">
+                                            <option value="false">Auction Again</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            }
+                            <div class="col-sm-12">
+                                <button class="btn btn-primary">Submit</button>
+                                <a href="@Url.Action("Index","Exhibition")" class="btn btn-danger">Return</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var s_day = @date_start.Day;
+            var s_month = @date_start.Month;
+            var s_year = @date_start.Year;
+
+            if (s_month < 10) s_month = "0" + s_month;
+            if (s_day < 10) s_day = "0" + s_day;
+
+            var s_today = s_year + "-" + s_month + "-" + s_day;
+            $("#Start_Date").attr("value", s_today);
+
+            var e_day = @date_end.Day;
+            var e_month = @date_end.Month;
+            var e_year = @date_end.Year;
+
+            if (e_month < 10) e_month = "0" + e_month;
+            if (e_day < 10) e_day = "0" + e_day;
+
+            var e_today = e_year + "-" + e_month + "-" + e_day;
+            $("#End_Date").attr("value", e_today);
+        });
+    </script>
+    <script type="text/javascript">
+        CKEDITOR.replace("Detail");
+    </script><br />
+}

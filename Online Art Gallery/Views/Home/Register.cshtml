@@ -1,0 +1,123 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- START PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Register</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Register page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BANNER SECTION -->
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                <div class="login-reg-form">
+                    <form action="Register" method="post">
+                        <div class="row">
+                            <div class="col-xs-12 mb-20">
+                                <label for="user_name"> Name <span class="required">*</span></label>
+                                <input id="user_name" name="name" type="text" >
+                                @if (TempData["name-validation"] != null)
+                                {
+                                    <span class="required">@TempData["name-validation"]</span>
+                                }
+                            </div>
+                            <div class=" col-xs-12 mb-20">
+                                <label for="email">Email Address <span class="required">*</span></label>
+                                <input id="email" name="email" type="email" >
+                                @if (TempData["email-validation"] != null)
+                                {
+                                    <span class="required">@TempData["email-validation"]</span>
+                                }
+                            </div>
+                            <div class=" col-xs-12 mb-20">
+                                <label for="phone">Phone  <span class="required">*</span></label>
+                                <input id="phone" name="phone" type="text" />
+                                @if (TempData["phone-validation"] != null)
+                                {
+                                    <span class="required">@TempData["phone-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label>Address <span class="required">*</span></label>
+                                <input name="address" type="text" placeholder="" />
+                                @if (TempData["address-validation"] != null)
+                                {
+                                    <span class="required">@TempData["address-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label>BirthDate <span class="required">*</span></label>
+                                <input id="date" name="birth_date" type="date" placeholder="" />
+
+                            </div>
+                            <div class="col-sm-6 col-xs-12 mb-20">
+                                <label>Gender <span class="required">*</span></label>
+                                <div class="gender-check">
+                                    <div class="form-check">
+                                        <input type="radio" name="gender" value="true" checked>
+                                        <label for="">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-right">
+                                        <input type="radio" name="gender" value="false">
+                                        <label for="">Female</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label>Account Name <span class="required">*</span></label>
+                                <input name="login_name" type="text" placeholder="" />
+                                @if (TempData["login_name-validation"] != null)
+                                {
+                                    <span class="required">@TempData["login_name-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label class="" for="password">Account Password<span class="required">*</span></label>
+                                <input id="password" name="password" type="password">
+                                @if (TempData["password-validation"] != null)
+                                {
+                                    <span class="required">@TempData["password-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-xs-12 mb-20">
+                                <label class="" for="c_password">Confirm Password<span class="required">*</span></label>
+                                <input id="c_password" name="c_password" type="password">
+                                @if (TempData["c_password-validation"] != null)
+                                {
+                                    <span class="required">@TempData["c_password-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-xs-12">
+                                <input value="register" type="submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->
+@section Scripts{
+    <script>
+        $('.date').datepicker({
+            format: 'dd/mm/yyyy'
+        });
+    </script>
+}

@@ -1,0 +1,96 @@
+﻿@using Online_Art_Gallery.Models;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Rating rating = ViewBag.Rating;
+    DateTime date = (DateTime)rating.Published_Date;
+    int age = (int)rating.Rating_Number;
+}
+
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Rating</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Rating")">Rating</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Detail</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-lg-8 col-12 mx-auto">
+            <div class="card">
+                <div class="card-header card-header-form">
+                    <h5>Rating Detail </h5>
+                </div>
+                <div class="card-body card-detail">
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Id</label>
+                                    <input name="id" type="text" class="form-control" id="Name" placeholder="" value="@rating.Id" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">User Name</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@rating.User.Name" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">User Email</label>
+                                    <input name="email" type="text" class="form-control" id="Name" placeholder="" value="@rating.User.Email" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Artwork Name</label>
+                                    <input name="email" type="text" class="form-control" id="Name" placeholder="" value="@rating.Artwork.Name" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Artwork Image</label>
+                                    <div class="img-detail">
+                                        <img src="~/Content/Images/Artwork/@rating.Artwork.Picture" width="200px" height="200px" alt="Alternate Text" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Rating</label>
+                                    <div class="hd-status-ex">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <i class="fa fa-star @(i <= age ? "hd-rating-active" : "")"></i>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Descreption</label>
+                                    <textarea name="descreption" class="form-control" id="Descreption" rows="3" disabled>@rating.Descreption</textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Published Date</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@date.ToString("MMMM dd, yyyy")" disabled>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <a href="@Url.Action("Index","Rating")" class="btn btn-danger">Return</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+

@@ -1,0 +1,258 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "OrderArtworkDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Order order = ViewBag.Order;
+    var Payment = (List<PaymentMethod>)ViewData["paymentmethods"];
+    var User = (List<User>)ViewData["users"];
+    DateTime date = (DateTime)order.Order_Date;
+    var Artwork = (List<Artwork>)ViewData["artworks"];
+    var OrderDetail = (List<OrderDetail>)ViewData["orderdetails"];
+}
+
+<!-- [ content ] Start -->
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Order Artwork Detail</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("OrderArtworkDetail","Order")">Order Artwork </a></li>
+            <li class="breadcrumb-item active"><a href="#">Detail</a></li>
+        </ol>
+    </div>
+
+
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-header">
+                    <h5>User Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Option</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @foreach (var user in User)
+                                    {
+                                        if (order.Id_User == user.Id)
+                                        {
+                                            <td>@user.Id</td>
+                                            <td>@user.Name</td>
+                                            <td>@user.Email</td>
+                                            <td>@user.Phone</td>
+                                            <td>@user.Address</td>
+                                            <td>
+                                                <a href="@Url.Action("Detail","User", new { id = user.Id })" class="btn btn-info btn-sm">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> View
+                                                </a>
+                                            </td>
+
+                                        }
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Information </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Order_Date</th>
+                                    <th>Order_Price</th>
+                                    <th>PaymentMethod</th>
+                                    @if (order.Different_Address != "")
+                                    {
+                                        <th>Different Address</th>
+                                    }
+                                    @if (order.Descreption != "")
+                                    {
+
+                                        <th>Descreption</th>
+                                    }
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@order.Id</td>
+                                    <td>@date.ToString("MMMM dd, yyyy")</td>
+                                    <td>$ @order.Order_Price.00</td>
+
+                                    @foreach (var payment in Payment)
+                                    {
+                                        if (payment.Id == order.Id_PaymentMethod)
+                                        {
+                                            <td>@payment.Name</td>
+                                        }
+                                    }
+                                    @if (order.Different_Address != "")
+                                    {
+                                        <td>@order.Different_Address</td>
+                                    }
+                                    @if (order.Descreption != "")
+                                    {
+                                        <td>@order.Descreption</td>
+                                    }   
+                                    @if (order.Status == 0)
+                                    {
+                                        <td>
+                                            <span class="spinner-border spinner-border-sm text-primary"></span>
+                                            Pending..
+                                        </td>
+
+                                    }
+                                    else if (order.Status == 1)
+                                    {
+                                        <td>
+                                            <span class="spinner-grow text-success spinner-grow-sm"></span>
+                                            Processed..
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <span class="spinner-grow text-danger spinner-grow-sm"></span>
+                                            Cancelled..
+                                        </td>
+                                    }
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table table-bordered table-striped mb-0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Owner</th>
+                                    <th>Price</th>
+                                    <th>Sale_Price</th>
+                                    <th>Total</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var detail in OrderDetail)
+                                {
+                                    if (detail.Id_Order == order.Id)
+                                    {
+                                        foreach (var artwork in Artwork)
+                                        {
+                                            if (artwork.Id == detail.Id_Artwork)
+                                            {
+                                                <tr>
+                                                    <td>@artwork.Id</td>
+                                                    <td><img src="~/Content/Images/Artwork/@artwork.Picture" class="img-radius" width="30px" height="30px"></td>
+                                                    <td>@artwork.Name</td>
+                                                    @foreach (var user in User)
+                                                    {
+                                                        if (artwork.Owner == user.Id)
+                                                        {
+                                                            <td>@user.Name</td>
+                                                        }
+                                                    }
+                                                    <td>$ @artwork.Price.00</td>
+                                                    @if (artwork.Sale_Price != 0)
+                                                    {
+                                                        <td>$ @artwork.Sale_Price.00</td>
+                                                        <td>$ @artwork.Sale_Price.00</td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>$ @artwork.Sale_Price</td>
+                                                        <td>$ @artwork.Price.00</td>
+                                                    }
+                                                    <td>
+                                                        <a href="@Url.Action("Detail","Artwork", new { id = @artwork.Id })" class="btn btn-info btn-sm">
+                                                            <i class="fa fa-eye" aria-hidden="true"></i> View
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                @if (order.Status == 0)
+                {
+                    <a href="@Url.Action("OrderArtworkProcessing","Order", new { id = order.Id })" class="btn btn-success m-b-15">
+                        Order Processing <i class="fa fa-check"></i>
+                    </a>
+                    <a href="@Url.Action("OrderArtwork","Order")" class="btn btn-secondary">
+                        Return <i class="fa fa-reply"></i>
+                    </a>
+
+                }
+                else
+                {
+                    <a href="@Url.Action("OrderArtwork","Order")" class="btn btn-info btn-sm">
+                        Return <i class="fa fa-reply"></i>
+                    </a>
+                }
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+<!-- [ content ] End -->

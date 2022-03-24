@@ -1,0 +1,269 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Artwork artwork = ViewBag.Artwork;
+    var Ratings = (List<Rating>)ViewData["ratings"];
+    var t_review = Ratings.Where(x => x.Id_Artwork == artwork.Id).Count();
+
+}
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Shop Artwork</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="active">Artwork Detail page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BANNER SECTION -->
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="title-eltdf pb-80">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">History of art department</p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        ArtworkDetail
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="row mb-40">
+            <!-- Single Product Images -->
+            <div class="col-md-6 col-sm-6 col-xs-12 mb-40">
+                <!-- Tab panes -->
+                <div class="tab-content mb-10">
+                    <div class="pro-large-img tab-pane active" id="pro-large-img-1">
+                        <img src="~/Content/Images/Artwork/@artwork.Picture" alt="" />
+                    </div>
+                </div>
+            </div>
+            <!-- Single Product Details -->
+            <div class="col-md-6 col-sm-6 col-xs-12 mb-40">
+                <div class="product-details section">
+                    <!-- Title -->
+                    <h1 class="title">@artwork.Name</h1>
+                    <!-- Price Ratting -->
+                    <div class="price-ratting section">
+                        <!-- Price -->
+                        @if (@artwork.Sale_Price > 0)
+                        {
+                            <span class="price float-start"><span class="new">$ @artwork.Sale_Price</span><span class="old">$ @artwork.Price</span></span>
+                        }
+                        else
+                        {
+                            <span class="price float-start"><span class="new">$ @artwork.Price</span></span>
+                        }
+                        <!-- Ratting -->
+                        @if (artwork.Total_Rating > 0)
+                        {
+                            int age = (int)(artwork.Total_Rating_Points / artwork.Total_Rating);
+                            <span class="ratting float-end">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="fa fa-star @(i <= age ? "active" : "") "></i>
+                                }
+
+                                <span> (@(t_review < 10 ? "0" + @t_review.ToString() : @t_review.ToString()) Review)</span>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="ratting float-end">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    <i class="fa fa-star "></i>
+                                }
+                                <span> ( No Review)</span>
+                            </span>
+                        }
+
+                    </div>
+                    <!-- Short Description -->
+                    <div class="short-desc section">
+                        <h5 class="pd-sub-title">Quick Overview</h5>
+                        <p>There are many variations of passages of Lorem Ipsum avaable, b majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. make an ami jani na.</p>
+                    </div>
+                    <!-- Product Cart -->
+                    <div class="product-cart-detail section mb-25">
+                        <div class="hero-slider-content-button">
+                            <a href="@Url.Action("Add","Cart", new { id = @artwork.Id })" class=" eltdf-btn eltdf-btn-outline-slit">
+                                <svg height="50" width="175"><rect height="50" width="175"></rect></svg>
+                                <span>Add To Cart</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Usefull Link -->
+                    <ul class="usefull-link section">
+                        <li><a href="#"><i class="pe-7s-mail"></i> Email to a Friend</a></li>
+                        <li><a href="#"><i class="pe-7s-like"></i> Wishlist</a></li>
+                        <li><a href="#"><i class="pe-7s-print"></i> print</a></li>
+                    </ul>
+                    <!-- Share -->
+                    <div class="share-icons section">
+                        <span>share :</span>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <nav class="tablist-history mb-60">
+                <div class=" nav nav-tabs" id="nav-tab" role="tablist">
+                    @*<a class="nav-link active" id="nav-artist-tab" data-toggle="tab" href="#nav-artist" role="tab" aria-controls="nav-artist" aria-selected="true">Artist</a>*@
+                    <a class="nav-link" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="false">Addtional Information</a>
+                    <a class="nav-link" id="nav-review-tab" data-toggle="tab" href="#nav-review" role="tab" aria-controls="nav-review" aria-selected="false">Reviews</a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                @*<div class="tab-pane fade show active" id="nav-artist" role="tabpanel" aria-labelledby="nav-artist-tab">
+
+                </div>*@
+                <div class="tab-pane fade" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
+                    <table class="table-data-sheet">
+                        <tbody>
+                            <tr class="odd">
+                                @{
+                                    DateTime date = (DateTime)artwork.Year;
+                                }
+                                <td>Year</td>
+                                <td>@date.ToString("MMM d, yyyy")</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Size</td>
+                                <td>@artwork.Size</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Type</td>
+                                <td>@artwork.Type</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Technique</td>
+                                <td>@artwork.Technique</td>
+                            </tr>
+                            <tr class="odd">
+                                <td>Artist</td>
+                                <td>@artwork.Id_Artist</td>
+                            </tr>
+                            <tr class="even">
+                                <td>Id_Category</td>
+                                <td>@artwork.Id_Category</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-pane fade" id="nav-review" role="tabpanel" aria-labelledby="nav-review-tab">
+                    <div class="row">
+                        <div class="col-6 review-border-r">
+                            <h2 class="mb-25">REVIEW FOR Artwork</h2>
+                            @foreach (var rating in Ratings)
+                            {
+                                foreach (var user_r in ViewData["users"] as List<User>)
+                                {
+                                    if (rating.Id_Artwork == artwork.Id)
+                                    {
+                                        if (rating.Id_User == user_r.Id)
+                                        {
+                                            DateTime published_date = (DateTime)rating.Published_Date;
+                                            var number_rt = rating.Rating_Number;
+
+                                            <div class="review-byuser mb-20">
+                                                <div class="review-byuser-img">
+                                                    <img src="~/Content/Images/User/@rating.User.Picture" alt="">
+                                                </div>
+
+                                                <div class="review-byuser-commnent">
+                                                    <div class="commnent-rating mb-10">
+                                                        @for (int i = 1; i <= 5; i++)
+                                                        {
+                                                            <i class="fa fa-star @(i <= number_rt ? "active" : "")"></i>
+                                                        }
+                                                    </div>
+                                                    <div class="commnent-meta mb-10">
+                                                        <span class="review-author">@user_r.Name</span>
+                                                        <span class="review-dash">–</span>
+                                                        <span class="review-published-date">@published_date.ToString("MMMM d, yyyy")</span>
+                                                    </div>
+                                                    <div class="commnent-text">@rating.Descreption</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            }
+                        </div>
+                        <div class="col-6">
+                            <h2 class="mb-25">REVIEW</h2>
+                            <div class="comment-form">
+                                @if (TempData["Success"] != null)
+                                {
+                                    <div class="alert alert-success" role="alert">@TempData["Success"]</div>
+                                }
+                                <form action="@Url.Action("RatingArtwork","Artwork")" method="post">
+                                    <div class="comment-form-rating mb-20">
+                                        <label class="" for="">Your rating <span class="required">*</span></label>
+                                        <span class="lst-rating">
+                                            @for (int i = 1; i <= 5; i++)
+                                            {
+                                                <i class="fa fa-star" data-key="@i"></i>
+                                            }
+                                        </span>
+                                        <input class="d-none" type="text" name="id_artwork" value="@artwork.Id">
+                                        <input class="d-none rating_number" type="text" name="rating_number" value="">
+                                    </div>
+                                    <div class="comment-form-comment mb-25">
+                                        <label for="">Your review <span class="required">*</span></label>
+                                        <textarea id="comment" name="descreption" rows="8"></textarea>
+                                    </div>
+                                    <div class="comment-form-button">
+                                        <button type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->
+@section Scripts{
+    <script>
+        $(function () {
+            let lstStar = $(".lst-rating i");
+
+            lstStar.mouseover(function () {
+                let $this = $(this);
+
+                let number = $this.attr('data-key');
+
+                lstStar.removeClass('rating-active');
+
+                $(".rating_number").val(number);
+
+                $.each(lstStar, function (key, value) {
+                    if (key + 1 <= number) {
+                        $(this).addClass('rating-active');
+                    }
+                });
+            });
+        });
+    </script>
+}
+

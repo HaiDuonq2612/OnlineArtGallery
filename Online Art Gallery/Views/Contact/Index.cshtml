@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Contact</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="active">Contact page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION START -->
+<!-- PAGE SECTION -->
+<div class="page-section section pt-120 pb-90">
+    <div class="container">
+        <div class="title-eltdf pb-100">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">History of art department</p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        Contact
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="row mb-40">
+            <!-- Contact Map -->
+            <div class="contact-map col-lg-6 col-12 mb-40">
+                <div class="map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.655125042269!2d105.78124751501316!3d21.046480985988808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab32dd484c53%3A0x4201b89c8bdfd968!2zMjM4IEhvw6BuZyBRdeG7kWMgVmnhu4d0LCBD4buVIE5odeG6vywgQ-G6p3UgR2nhuqV5LCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1630692085852!5m2!1svi!2s" width="610px" height="350px" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <!-- Contact Form -->
+            <div class="contact-form col-lg-6 col-12 mb-40">
+                <h3>Send Your Massage</h3>
+                <form id="" action="@Url.Action("SendEmail","Contact")" method="post">
+                    <div class="row">
+                        <div class="col-sm-6 col-xs-12 mb-20">
+                            <input type="text" name="name" placeholder="Your name">
+                            @if (TempData["name-validation"] != null)
+                            {
+                                <span class="required">@TempData["name-validation"]</span>
+                            }
+                        </div>
+                        <div class="col-sm-6 col-xs-12 mb-20">
+                            <input type="email" name="email" placeholder="Your email">
+                            @if (TempData["email-validation"] != null)
+                            {
+                                <span class="required">@TempData["email-validation"]</span>
+                            }
+                        </div>
+                        <div class="col-xs-12 mb-20">
+                            <textarea name="message" placeholder="Your message"></textarea>
+                            @if (TempData["message-validation"] != null)
+                            {
+                                <span class="required">@TempData["message-validation"]</span>
+                            }
+                        </div>
+                        <div class="col-xs-12"><input type="submit" value="SUBMIT"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- Contact Info -->
+        <div class="row">
+            <div class="contact-info col-lg-4 col-12 text-center mb-30">
+                <p>Phone: +84 986 888 888</p>
+            </div>
+            <div class="contact-info col-lg-4 col-12 text-center mb-30">
+                <p>Email: haiduong261201@gmail.com</p>
+            </div>
+            <div class="contact-info col-lg-4 col-12 text-center mb-30">
+                <p>Address: 238 Hoang Quoc Viet Street, Cau Giay, Ha Noi.</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE SECTION -->

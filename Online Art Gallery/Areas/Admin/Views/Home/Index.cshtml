@@ -1,0 +1,222 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    DateTime now = DateTime.Now;
+    var Category = (List<Category>)ViewData["Categories"];
+
+    var Artist = (List<Artist>)ViewData["Artists"];
+
+    var Artwork = (List<Artwork>)ViewData["Artworks"];
+
+    var User = (List<User>)ViewData["Users"];
+
+
+    var Exhibition = (List<Exhibition>)ViewData["Exhibitions"];
+
+    var Order = (List<Order>)ViewData["Orders"];
+    float total_art = 0;
+    foreach (var item in Order)
+    {
+        if (item.Status == 1)
+        {
+            total_art += (float)item.Order_Price;
+        }
+    }
+
+    var OrderExhibition = (List<OrderExhibition>)ViewData["OrderExhibitions"];
+    float total_ex = 0;
+    foreach (var exhibi  in OrderExhibition)
+    {
+        if (exhibi.Status == true)
+        {
+            total_ex += (float) exhibi.Bet_Price;
+        }
+    }
+
+    var PaymentMethod = (List<PaymentMethod>)ViewData["PaymentMethods"];
+
+    var Blog = (List<Blog>)ViewData["Blogs"];
+
+    var Banner = (List<Banner>)ViewData["Banners"];
+
+    var Rating = (List<Rating>)ViewData["Ratings"];
+}
+
+<!-- [ content ] Start -->
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Dashboard</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb ">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="#">Dashboard </a></li>
+        </ol>
+    </div>
+    <div class="row">
+        <!-- 1st row Start -->
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2"> @now.ToString("hh : mm") </h2>
+                                    <p class="text-muted mb-0">@now.ToString("MMMM dd, yyyy")</p>
+                                </div>
+                                <div class="lnr lnr-leaf display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2"> @Order.Count() <small></small></h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">$ @total_art.00</span> Order Artwork</p>
+                                </div>
+                                <div class="lnr lnr-cart display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@OrderExhibition.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">$ @total_ex.00 </span> Order Exhibition</p>
+                                </div>
+                                <div class="lnr lnr-cart display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@PaymentMethod.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> PaymentMethod</p>
+                                </div>
+                                <div class="ion ion-ios-card display-4 text-warning"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Category.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Category</p>
+                                </div>
+                                <div class="lnr lnr-chart-bars display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Artist.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Artist</p>
+                                </div>
+                                <div class="lnr lnr-users display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Artwork.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Artwork</p>
+                                </div>
+                                <div class="ion ion-md-images display-4 text-warning"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12 m-b-50"">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Exhibition.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Exhibition</p>
+                                </div>
+                                <div class="ion ion-ios-image display-4 text-warning"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@User.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> User</p>
+                                </div>
+                                <div class="lnr lnr-user display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Blog.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Blog</p>
+                                </div>
+                                <div class="ion ion-ios-chatboxes display-4 text-warning"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Banner.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Banner</p>
+                                </div>
+                                <div class="ion ion-md-analytics display-4 text-warning"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-12">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div class="">
+                                    <h2 class="mb-2">@Rating.Count()</h2>
+                                    <p class="text-muted mb-0"><span class="badge badge-success">Total</span> Rating</p>
+                                </div>
+                                <div class="lnr lnr-bubble display-4 text-primary"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 1st row Start -->
+    </div>
+</div>
+<!-- [ content ] End -->

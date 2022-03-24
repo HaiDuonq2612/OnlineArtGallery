@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- START PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Login</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">Login page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BANNER SECTION -->
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-120">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-10 col-12 mx-auto">
+                <div class="login-reg-form">
+                    <form action="Login" method="post">
+                        <div class="row">
+                            <div class="col-12 mb-20">
+                                <label for="username">Username or email <span class="required">*</span></label>
+                                <input name="name" id="username" type="text">
+                                @if (TempData["name-validation"] != null)
+                                {
+                                    <span class="required">@TempData["name-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-12 mb-20">
+                                <label for="password">Passwords <span class="required">*</span></label>
+                                <input name="password" id="password" type="password">
+                                @if (TempData["password-validation"] != null)
+                                {
+                                    <span class="required">@TempData["password-validation"]</span>
+                                }
+                            </div>
+                            <div class="col-12 mb-20">
+                                <input value="Login" name="login" class="inline" type="submit">
+                            </div>
+                            <div class="col-12">
+                                <a href="@Url.Action("Register","Home")">Register</a>
+                                <a class="forgotpassword" href="@Url.Action("ForgotPassword","Home")">Lost your password?</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->

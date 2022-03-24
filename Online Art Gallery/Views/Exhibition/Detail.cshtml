@@ -1,0 +1,193 @@
+﻿@using Online_Art_Gallery.Models;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- START ART EXHIBITION SECTION -->
+@{
+    Exhibition exhibition = ViewBag.Exhibition;
+    DateTime start_date = (DateTime)@exhibition.Start_Date;
+    DateTime end_date = (DateTime)@exhibition.End_Date;
+}
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>EXHIBITION</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="active">EXHIBITION Detail page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION START -->
+<div class="art-exhibition-section section pb-120 pt-120">
+    <div class="container">
+        <div class="title-eltdf pt-80 pb-100">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">@start_date.ToString("MMM d yyyy") - @start_date.ToString("MMM d yyyy") </p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        @exhibition.Name
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="art-exhibition-img">
+            <img src="~/Content/Images/Exhibition/@exhibition.Picture" alt="">
+        </div>
+        <div class="art-exhibition-main-content pt-60 pb-100">
+            @Html.Raw(@exhibition.Detail)
+            <div class="art-exhibition-content-side-content">
+                <div class="row">
+                    <div class="col-3 roles-border-right">
+                        <div class="side-content-roles-holder ">
+                            <div class="content-roles">
+                                <h3>DATE </h3>
+                                <ul>
+                                    <li>
+                                        <p>@start_date.ToString("MMM dd, yyyy") - @end_date.ToString("MMM dd, yyyy") </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 roles-border-right">
+                        <div class="side-content-roles-holder">
+                            <div class="content-roles">
+                                <h3> Price </h3>
+                                <ul>
+                                    <li>
+                                        <p>
+                                            <i class="fa fa-usd"></i> @exhibition.Starting_Price
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 roles-border-right">
+                        <div class="side-content-roles-holder">
+                            <div class="content-roles">
+                                <h3>Owner </h3>
+                                <ul>
+                                    <li>
+                                        @foreach (var user in ViewData["users"] as List<User>)
+                                        {
+                                            if (@user.Id == @exhibition.Owner)
+                                            {
+                                                <p>@user.Name</p>
+                                            }
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-3 ">
+                        <div class="side-content-roles-holder">
+                            <div class="content-roles">
+                                <h3>Address </h3>
+                                <ul>
+                                    <li>
+                                        <p>
+                                            @exhibition.Address
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="table-order-exhibition txcenter pb-60">
+            <div class="title-eltdf pb-100">
+                <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">@start_date.ToString("MMM dd, yyyy") - @start_date.ToString("MMM dd, yyyy") </p>
+                <div class="eltdf-st-title">
+                    <span class="eltdf-st-title-inner">
+                        <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                        <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                            Top Bet
+                        </h1>
+                        <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    </span>
+                </div>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Bet Price</th>
+                        <th scope="col">Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+
+                        int i = 0;
+                    }
+                    @foreach (var order in ViewData["orders"] as List<OrderExhibition>)
+                    {
+
+                        i++;
+
+                        foreach (var user in ViewData["users"] as List<User>)
+                        {
+                            if (@user.Id == @order.Id_User)
+                            {
+
+                                DateTime date = (DateTime)@order.Bet_Date;
+
+                                <tr>
+                                    <th scope="row">@i</th>
+                                    <td>@user.Name</td>
+                                    <td><i class="fa fa-usd"></i> @order.Bet_Price</td>
+                                    <td>@date.ToString("MMMM dd, yyyy")</td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success" role="alert">@TempData["Success"]</div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">@TempData["Error"]</div>
+        }
+        <div class="art-exhibition-form-auction pt-60 pb-60">
+            <form action="@Url.Action("OrderExhibition","Exhibition")" method="post">
+                <div class="auction-input">
+
+                    <input class="d-none" name="id" type="text" placeholder="Please Enter Price" value="@exhibition.Id">
+                    <input name="bet_price" type="number" placeholder="Please Enter Price">
+                    <i class="fa fa-usd"></i>
+                </div>
+                <div class="auction-button pt-30">
+                    <div class="hero-slider-content-button">
+                        <button type="submit" class="wow fadeInUp eltdf-btn eltdf-btn-outline-slit" data-wow-duration="1s" data-wow-delay="1s" style="visibility: visible; animation-duration: 1s; animation-delay: 1.5s; animation-name: fadeInUp;">
+                            <svg height="50" width="175"><rect height="50" width="175"></rect></svg>
+                            <span>place a bet</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- END ART EXHIBITION SECTION -->

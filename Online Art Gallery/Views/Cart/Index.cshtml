@@ -1,0 +1,154 @@
+﻿@using Online_Art_Gallery.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var CartDetails = (List<Cart>)ViewData["carts"];
+    var Artworks = (List<Artwork>)ViewData["artworks"];
+    float SubTotal = 0, SaleTotal = 0, Total = 0;
+}
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Cart</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="active">Cart page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION START -->
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-80">
+    <div class="container">
+        <div class="title-eltdf pb-100">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">History of art department</p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        Cart List
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    @if (CartDetails.Count() > 0)
+                    {
+                        <div class="col-12">
+                            <div class="cart-table table-responsive mb-40">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th class="pro-thumbnail">Image</th>
+                                            <th class="pro-title">Product</th>
+                                            <th class="pro-price">Price</th>
+                                            <th class="pro-price">Total</th>
+                                            <th class="pro-remove">Remove</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var cart in CartDetails)
+                                        {
+                                            foreach (var artwork in Artworks)
+                                            {
+                                                if (cart.Id_Artwork == artwork.Id)
+                                                {
+                                                    <tr>
+                                                        <td class="pro-thumbnail">
+                                                            <a href=""><img src="~/Content/Images/Artwork/@artwork.Picture" alt="" /></a>
+                                                        </td>
+                                                        <td class="pro-title"><a href="">@artwork.Name</a></td>
+                                                        @if (artwork.Sale_Price != 0)
+                                                        {
+                                                            <td class="pro-price"><span class="amount">$ @artwork.Sale_Price.00</span><span class="old">$ @artwork.Price.00</span></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="pro-price"><span class="amount">$ @artwork.Price.00</span></td>
+                                                        }
+                                                        <td class="pro-price"><span class="amount">@(artwork.Sale_Price != 0 ? "$ " + artwork.Sale_Price.ToString() + ".00" : "$ " + artwork.Price.ToString() + ".00")</span></td>
+
+                                                        <td class="pro-remove"><a href="@Url.Action("Delete", "Cart", new { id = cart.Id })">×</a></td>
+                                                    </tr>
+
+                                                    //Total
+                                                    SubTotal += float.Parse(artwork.Price.ToString());
+                                                    if (artwork.Sale_Price != 0)
+                                                    {
+                                                        var sale = artwork.Price - artwork.Sale_Price;
+                                                        SaleTotal += float.Parse(sale.ToString());
+                                                    }
+                                                    Total = SubTotal - SaleTotal;
+                                                }
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="no-data-item">
+                            <div class="no-data-icon">
+                                <img src="~/Layout/Art Gallery/img/nodata.png" alt="Alternate Text" width="100px" height="100px" />
+                            </div>
+                            <div class="no-data-text">
+                                No Data Item
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row">
+                        <div class="col-lg-8 col-md-7 col-12">
+                            <div class="cart-buttons mb-30">
+                                <a href="@Url.Action("Index","Artwork")">Continue Shopping</a>
+                            </div>
+                        </div>
+                        @if (CartDetails.Count() > 0)
+                        {
+                            <div class="col-lg-4 col-md-5 col-12">
+                                <div class="cart-total mb-40">
+                                    <h3>Cart Totals</h3>
+                                    <table>
+                                        <tbody>
+                                            <tr class="cart-subtotal">
+                                                <th>Sub total</th>
+                                                <td><span class="amount">$ @SubTotal.00</span></td>
+                                            </tr>
+                                            <tr class="cart-subtotal">
+                                                <th>Sale total</th>
+                                                <td><span class="amount">$ @SaleTotal.00</span></td>
+                                            </tr>
+                                            <tr class="order-total">
+                                                <th>Total</th>
+                                                <td>
+                                                    <strong><span class="amount">$ @Total.00</span></strong>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="proceed-to-checkout section mt-30">
+                                        <a href="@Url.Action("Index","Checkout")">Proceed to Checkout</a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->

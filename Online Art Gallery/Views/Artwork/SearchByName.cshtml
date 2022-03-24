@@ -1,0 +1,162 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "SearchByName";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Shop Artwork</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Home")">Home</a></li>
+                        <li class="active">Search By Name page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION START -->
+<!-- PAGE SECTION START -->
+<div class="page-section section pt-120 pb-100">
+    <div class="container">
+        <div class="title-eltdf pb-100">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">History of art department</p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        shop products
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="row justify-content-between">
+            <!-- Isotop Product Filter -->
+
+            <div class="isotope-product-filter col-auto">
+                <button class="active" data-filter="*">all</button>
+                @foreach (var category in ViewData["categorys"] as List<Category>)
+                {
+                    <button data-filter=".@category.Id">@category.Name</button>
+
+                }
+            </div>
+            <!-- Product Filter Toggle -->
+            <div class="col-auto">
+                <button class="product-filter-toggle">filter</button>
+            </div>
+        </div>
+
+        <!-- Product Filter Wrapper -->
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="product-filter-wrapper">
+                    <div class="row">
+                        <!-- Product Filter -->
+                        <div class="product-filter product-filter-border col-md-3 col-sm-6 col-xs-12 mb-30">
+                            <h5>Search filters</h5>
+                            <div class="product-filter-search">
+                                <form action="@Url.Action("SearchByName","Artwork")">
+                                    <div class="filter-search-form">
+                                        <input name="name" type="text" placeholder="Search Products...">
+                                        <button type="submit"><i class="pe pe-7s-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Product Filter -->
+                        <div class="product-filter product-filter-border col-md-3 col-sm-6 col-xs-12 mb-30">
+                            <h5>Sort by</h5>
+                            <ul class="sort-by">
+                                <li><a href="@Url.Action("Index","Artwork")">Default</a></li>
+                                <li><a href="@Url.Action("SortBy","Artwork", new { id = 1})">Price: Low to High</a></li>
+                                <li><a href="@Url.Action("SortBy","Artwork", new { id = 2})">Price: High to Low</a></li>
+                            </ul>
+                        </div>
+                        <!-- Product Filter -->
+                        <div class="product-filter product-filter-border col-md-3 col-sm-6 col-xs-12 mb-30">
+                            <h5>product tags</h5>
+                            <ul class="product-tags">
+                                @foreach (var artist in ViewData["artists"] as List<Artist>)
+                                {
+                                    <li><a href="@Url.Action("SearchByArtist","Artwork", new { id = artist.Id})">@artist.Name</a></li>
+                                }
+                            </ul>
+                        </div>
+
+                        <!-- Product Filter -->
+                        <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
+                            <h5>Filter by price</h5>
+                            <div id="price-range"></div>
+                            <div class="filter-price">
+                                <form action="@Url.Action("SearchByPrice","Artwork")">
+                                    <div class="price-values">
+                                        <span>Price:</span>
+                                        <input name="price" type="text" class="price-amount">
+                                    </div>
+                                    <div class="filter-price-button">
+                                        <button class="eltdf-btn eltdf-btn-outline-slit">
+                                            <svg height="42" width="132"><rect height="42" width="132"></rect></svg>
+                                            <span>Filter</span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="isotope-grid row">
+            <!-- product-item product-item-2 start -->
+            @foreach (var artwork in ViewData["artworks"] as List<Artwork>)
+            {
+                <div class="isotope-item @artwork.Id_Category home-decor col-lg-4 col-md-6 col-12 mb-50">
+                    <div class="product-item product-item-2 text-center">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <!-- Image -->
+                            <a class="image" href="@Url.Action("Detail","Artwork", new { id = @artwork.Id })"><img src="~/Content/Images/Artwork/@artwork.Picture" alt="" /></a>
+                            <!-- Action Button -->
+                            <div class="action-btn-2">
+                                <a href="@Url.Action("Add","Cart", new { id = @artwork.Id })" title="Add to Cart"><i class="pe-7s-cart"></i></a>
+                                <a href="@Url.Action("Detail","Artwork", new { id = @artwork.Id })" title="Quick View"><i class="pe-7s-look"></i></a>
+                                <a class="wishlist" href="@Url.Action("Create","Wishlist", new { id = @artwork.Id })" title="Wishlist"><i class="pe-7s-like"></i></a>
+                            </div>
+                        </div>
+                        <!-- Portfolio Info -->
+                        <div class="product-info">
+                            <!-- Title -->
+                            <h5 class="title"><a href="@Url.Action("Detail","Artwork", new { id = @artwork.Id })">@artwork.Name</a></h5>
+                            <!-- Price -->
+                            <div class="price-ratting fix">
+                                @if (@artwork.Sale_Price > 0)
+                                {
+                                    <span class="price"><span class="new">$ @artwork.Sale_Price.00</span><span class="old">$ @artwork.Price.00</span></span>
+                                }
+                                else
+                                {
+                                    <span class="price"><span class="new">$ @artwork.Price.00</span></span>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <!-- product-item product-item-2 end -->
+        </div>
+        <div class="row">
+            <div class="text-center col-xs-12 mt-30">
+                <a href="@Url.Action("Index","Artwork")" class="btn load-more-product">load more</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- PAGE SECTION END -->

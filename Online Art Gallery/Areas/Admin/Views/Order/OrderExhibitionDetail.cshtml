@@ -1,0 +1,203 @@
+﻿@using Online_Art_Gallery.Models
+@{
+    ViewBag.Title = "OrderExhibitionDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Exhibition exhibition = ViewBag.Exhibition;
+    var Orders_True = (List<OrderExhibition>)ViewData["orders_true"];
+    var Orders_False = (List<OrderExhibition>)ViewData["orders_false"];
+    DateTime date_start = (DateTime)exhibition.Start_Date;
+    DateTime date_end = (DateTime)exhibition.End_Date;
+
+    DateTime date = DateTime.Now;
+
+    TimeSpan TimeNow = date.Subtract(date_start);
+    TimeSpan Time = date.Subtract(date_end);
+
+    double start = TimeNow.TotalDays;
+    double end = Time.TotalDays;
+}
+
+<!-- [ content ] Start -->
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Order Exhibiton Detail Home</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","HomeAdmin")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("OrderExhibitionDetail","Order")">Order Exhibition Detail</a></li>
+            <li class="breadcrumb-item active"><a href="#">Home</a></li>
+        </ol>
+    </div>
+
+
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Exhibition Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped mb-0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Name</th>
+                                    <th>Picture</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Starting Price</th>
+                                    <th>Status</th>
+
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@exhibition.Id</td>
+                                    <td>@exhibition.Name</td>
+                                    <td><img src="~/Content/Images/Exhibition/@exhibition.Picture" class="img-radius" width="70px" height="70px"></td>
+                                    <td>@date_start.ToString("MMMM dd, yyyy")</td>
+                                    <td>@date_end.ToString("MMMM dd, yyyy")</td>
+                                    <td>$ @exhibition.Starting_Price.00</td>
+
+                                    @if (exhibition.Status == false)
+                                    {
+                                        <td>
+                                            <span class="spinner-border spinner-border-sm text-primary"></span>
+                                            Pending..
+                                        </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <span class="spinner-grow text-success spinner-grow-sm"></span>
+                                            Processed..
+                                        </td>
+                                    }
+                                    <td>
+                                        <a href="@Url.Action("Detail","Exhibition", new { id = @exhibition.Id })" class="btn btn-info btn-sm"><i class="feather icon-eye"></i> View</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Information </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        @if (exhibition.Status == true)
+                        {
+                            <table class="table table-bordered table-striped mb-0" style="text-align:center">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>User</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Price</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Orders_True)
+                                    {
+                                        DateTime date_true = (DateTime)order.Bet_Date;
+                                        <tr>
+                                            <td>@order.Id</td>
+                                            <td>@order.User.Name</td>
+                                            <td>@order.User.Phone</td>
+                                            <td>@order.User.Email</td>
+                                            <td>$ @order.Bet_Price.00</td>
+                                            <td>@date_true.ToString("MMMM dd, yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <table class="table table-bordered table-striped mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>User</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>Price</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Orders_False)
+                                    {
+                                        DateTime date_true = (DateTime)order.Bet_Date;
+                                        <tr>
+                                            <td>@order.Id</td>
+                                            <td>@order.User.Name</td>
+                                            <td>@order.User.Phone</td>
+                                            <td>@order.User.Email</td>
+                                            <td>$ @order.Bet_Price.00</td>
+                                            <td>@date_true.ToString("MMMM dd, yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                @if (end > 0)
+                {
+                    if (exhibition.Status == false)
+                    {
+                        <a href="@Url.Action("OrderExhibitionProcessing","Order", new { id = exhibition.Id })" class="btn btn-success m-b-15">
+                            Order Processing <i class="fa fa-check"></i>
+                        </a>
+                        <a href="@Url.Action("OrderExhibition","Order")" class="btn btn-secondary">
+                            Return <i class="fa fa-reply"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("OrderExhibition","Order")" class="btn btn-secondary">
+                            Return <i class="fa fa-reply"></i>
+                        </a>
+                    }
+
+                }
+                else
+                {
+                    <a href="@Url.Action("OrderExhibition","Order")" class="btn btn-info btn-sm">
+                        Return <i class="fa fa-reply"></i>
+                    </a>
+                }
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+<!-- [ content ] End -->

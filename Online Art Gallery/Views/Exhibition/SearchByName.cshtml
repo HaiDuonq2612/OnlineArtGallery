@@ -1,0 +1,144 @@
+﻿@using Online_Art_Gallery.Models
+
+
+@{
+    ViewBag.Title = "SearchByName";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var Exhibitions = (List<Exhibition>)ViewData["exhibitions"];
+}
+<!-- PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>Exhibition</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="@Url.Action("Index","Exhibition")">Exhibition</a></li>
+                        <li class="active">Search Name page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BANNER SECTION -->
+<!-- PAGE EXHIBITIONS SECTION -->
+<div class="page-exhibitions-section section pt-120 pb-120">
+    <div class="container">
+        <div class="title-eltdf pb-60">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+                Upcoming exhibitions
+
+            </p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        CURENTLY ON VIEW
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+            <p class="eltdf-st-text wow fadeInUp" data-wow-duration="1s" data-wow-delay="1.5s">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                <br> incididunt labore et dolore magna aliqua
+            </p>
+        </div>
+        <div class="filter-events ">
+            <div class="filter-events-search">
+                <div class="events-bar-search">
+                    <div class="row">
+                        <div class="col-lg-6 col-12 events-border-right">
+                            <h1> Search Events by Date </h1>
+                            <div class="events-search-date">
+                                <form action="@Url.Action("SearchByDate","Exhibition")">
+                                    <div class="date-search">
+                                        <div class="start-date-search">
+                                            <label for="">Start Date: </label>
+                                            <input type="date" name="start_date" id="txt-start-date-search" placeholder="dd/mm/yyyy" />
+                                            @if (TempData["start_date-validation"] != null)
+                                            {
+                                                <span class="required">@TempData["start_date-validation"]</span>
+                                            }
+                                        </div>
+                                        <div class="end-date-search">
+                                            <label for="">End Date: </label>
+                                            <input type="date" name="end_date" id="txt-end-date-search" placeholder="dd/mm/yyyy" />
+                                            @if (TempData["end_date-validation"] != null)
+                                            {
+                                                <span class="required">@TempData["end_date-validation"]</span>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <button type="submit">Find Events</button>
+                                </form>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <h1> Search Events by Keyword</h1>
+                            <div class="events-search-key">
+                                <form action="@Url.Action("SearchByName","Exhibition")">
+                                    <div class="events-search-key-form">
+                                        <input type="text" name="name" placeholder="Search for events">
+                                        <button type="submit"><i class="pe-7s-search"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @foreach (var exhibition in Exhibitions)
+        {
+
+            <div class="events-list pt-60">
+                @{
+                    DateTime start_date = (DateTime)@exhibition.Start_Date;
+                    DateTime end_date = (DateTime)@exhibition.End_Date;
+                }
+                <div class="events-list-month">
+                    <p>@start_date.ToString("MMMM yyyy")</p>
+                </div>
+                <div class="events-list-event">
+                    <div class="events-list-event-date-tag">
+                        <div class="events-list-event-date-tag-datetime">
+                            <span class="events-list-event-date-tag-weekday">@start_date.ToString("ddd")</span>
+                            <span class="events-list-event-date-tag-dayum">@start_date.ToString("dd")</span>
+                        </div>
+                    </div>
+                    <div class="events-list-event-wapper">
+                        <div class="events-list-event-image">
+                            <a class="events-list-event-image-link" href="@Url.Action("Detail","Exhibition", new { id = @exhibition.Id })"><img src="~/Content/Images/Exhibition/@exhibition.Picture" alt=""></a>
+                        </div>
+                        <div class="events-list-event-details">
+                            <header class="events-list-event-header">
+                                <div class="events-list-event-datetime">
+
+                                    <span class="events-date-start">@start_date.ToString("MMM dd, yyyy")</span> -
+                                    <span class="events-date-end">@end_date.ToString("MMM dd, yyyy")</span>
+                                </div>
+                                <h1 class="events-list-event-title">
+                                    <a href="@Url.Action("Detail","Exhibition", new { id = @exhibition.Id })">@exhibition.Name</a>
+
+                                </h1>
+                                <address class="events-list-event-venues">
+                                    <span class="events-list-event-venues-title">@exhibition.Address</span>
+                                </address>
+                            </header>
+                            <div class="events-list-event-descreption">
+                                <p>@exhibition.Descreption</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<!-- END EXHIBITIONS SECTION -->

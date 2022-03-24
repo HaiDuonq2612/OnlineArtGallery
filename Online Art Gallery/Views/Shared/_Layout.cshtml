@@ -1,0 +1,273 @@
+﻿<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>DươnqBùi - Online Art Gallery</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/Layout/Art Gallery/img/favicon.ico">
+
+    <!-- All CSS Files -->
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/bootstrap.min.css">
+    <!-- Icon Font -->
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/pe-icon-7-stroke.css">
+    <!-- Plugins css file -->
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/plugins.css">
+    <!-- PageList css -->
+    <link rel="stylesheet" href="~/Content/PagedList.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/padding-margin.css">
+    <link rel="stylesheet" href="~/Layout/Art Gallery/style.css">
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="~/Layout/Art Gallery/css/responsive.css">
+    <!-- Jquery UI css -->
+    <link rel="stylesheet" href="~/Layout/Art Gallery/js/vendor/jquery-ui.min.css">
+
+    <!-- Modernizr JS -->
+    <script src="~/Layout/Art Gallery/js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Sweetalert -->
+    <link rel="stylesheet" href="~/Content/Sweetalert/sweetalert2.min.css">
+    <script src="~/Content/Sweetalert/sweetalert2.min.js"></script>
+
+</head>
+@using Online_Art_Gallery.Models
+@{
+    ArtGalleryEntities entities = new ArtGalleryEntities();
+
+    var Categories = entities.Categories.ToList();
+
+    var Cart = entities.Carts.ToList();
+
+}
+<body>
+
+    <div class="pre_loader">
+        <div id='status'></div>
+        <div id='loader'></div>
+    </div>
+    <!-- Body main wrapper start -->
+
+    <div class="wrapper">
+
+        <!-- START HEADER SECTION -->
+        <header class="header-section section sticker">
+            <div class="container ">
+                <div class="row justify-content-between">
+                    <div class="col-auto hd-1">
+                        <!-- logo -->
+                        <div class="header-logo">
+                            <a href="@Url.Action("Index","Home")"><img src="~/Layout/Art Gallery/img/lo10.png" alt="main logo"></a>
+                        </div>
+                    </div>
+                    <div class="col-auto d-flex hd-2">
+                        <!-- header-search & total-cart -->
+                        <nav class="main-menu">
+                            <ul>
+                                <li>
+                                    <a href="@Url.Action("Index","Home")">Home</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("About","Home")">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Exhibition")">Exhibitions</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Artwork")">shop</a>
+                                    <ul class="sub-menu">
+                                        <li>
+                                            <a class="strikethrough" href="@Url.Action("Index","Artwork")">All</a>
+                                        </li>
+                                        @foreach (var defaults in Categories)
+                                        {
+                                        <li>
+                                            <a class="strikethrough" href="@Url.Action("SearchByCategory","Artwork", new { id =  defaults.Id})">@defaults.Name</a>
+                                        </li>
+                                        }
+                                    </ul>
+                                </li>
+                                @if (Session["Id"] != null)
+                                {
+                                    <li>
+                                        <a href="#">Pages</a>
+                                        <ul class="sub-menu">
+                                            <li><a class="strikethrough" href="@Url.Action("Index","Cart")">cart</a></li>
+                                            <li><a class="strikethrough" href="@Url.Action("Index","Checkout")">checkout</a></li>
+                                            <li><a class="strikethrough" href="@Url.Action("Index","Wishlist")">wishlist</a></li>
+                                            <li><a class="strikethrough" href="@Url.Action("Index","OrderHistory")">Order artwork</a></li>
+                                            <li><a class="strikethrough" href="@Url.Action("Exhibition","OrderHistory")">Order Exhibition</a></li>
+
+                                        </ul>
+                                    </li>
+
+                                }
+                                <li>
+                                    <a href="@Url.Action("Index","Blog")">Blog</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Index","Contact")">Contact</a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!-- header-search & total-cart -->
+                        <div class="header-option-btns d-flex">
+                            <!-- header-search -->
+                            <div class="header-search">
+                                <button class="search-toggle"><i class="pe-7s-search"></i></button>
+                                <div class="header-search-form">
+                                    <form action="@Url.Action("SearchByName","Artwork")">
+                                        <input type="text" name="name" placeholder="Search">
+                                        <button><i class="fa fa-long-arrow-right"></i></button>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- header Account -->
+                            <div class="header-account">
+                                <ul>
+                                    <li>
+                                        <a href="#" class="account-toggle"><i class="pe-7s-user"></i></a>
+                                        <ul class="account-menu">
+                                            @if (Session["Id"] != null)
+                                            {
+                                                <li><a href="#">@Session["Name"].ToString()</a></li>
+                                                <li><a href="@Url.Action("Profile", "Home", new { id = Session["Id"] })">Profile</a></li>
+                                                <li><a href="@Url.Action("Logout","Home")">Logout</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="@Url.Action("Login","Home")">Log in</a></li>
+                                                <li><a href="@Url.Action("Register","Home")">Register</a></li>
+                                            }
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- Header Cart -->
+                            <div class="header-cart">
+                                <!-- Cart Toggle -->
+                                <a class="cart-toggle" href="@Url.Action("Index","Cart")">
+                                    <i class="pe-7s-cart"></i>
+                                    @if (Session["Id"] != null)
+                                    {
+                                        <span>@Cart.Where(x => x.Id_User == (int)Session["Id"]).Count()</span>
+                                    }
+                                    else
+                                    {
+                                        <span>0</span>
+                                    }
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mobile-menu"></div>
+                </div>
+            </div>
+        </header>
+        <!-- END HEADER SECTION -->
+
+        @RenderBody()
+
+        <!-- FOOTER SECTION START -->
+        <div class="footer-top-section section pt-100 pb-60">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Footer Widget -->
+                    <div class="footer-widget col-lg-4 col-md-6 col-12 mb-40">
+                        <h5 class="widget-title">Art Gallery</h5>
+                        <p>There are many variations of passages of Lor available, but the majority have suffered alteration in some form, or randomised words which don't look even slightly believable</p>
+                    </div>
+
+                    <!-- Footer Widget -->
+                    <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
+                        <h5 class="widget-title">CUSTOMER SERVICE</h5>
+                        <ul>
+                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="#">Returns & Refunds</a></li>
+                            <li><a href="#">Terms & Conditions</a></li>
+                            <li><a href="#">online store</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Footer Widget -->
+                    <div class="footer-widget col-lg-2 col-md-6 col-12 mb-40">
+                        <h5 class="widget-title">PROFILE</h5>
+                        <ul>
+                            <li><a href="#">my Account</a></li>
+                            <li><a href="#">Checkout</a></li>
+                            <li><a href="#">help</a></li>
+                            <li><a href="#">support</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Footer Widget -->
+                    <div class="footer-widget col-lg-3 col-md-6 col-12 mb-40">
+                        <h5 class="widget-title">Follow Us:</h5>
+                        <div class="footer-social fix">
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <a href="#"><i class="fa fa-pinterest"></i></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- FOOTER SECTION END -->
+
+    </div>
+    <!-- Body main wrapper end -->
+    <!-- Placed JS at the end of the document so the pages load faster -->
+    <!-- Bootstrap js -->
+    <!-- jQuery latest version -->
+    <script src="~/Layout/Art Gallery/js/vendor/jquery-3.6.0.min.js"></script>
+    <script src="~/Layout/Art Gallery/js/vendor/jquery-ui.min.js"></script>
+
+    <!-- Bootstrap js -->
+    <script src="~/Layout/Art Gallery/js/bootstrap.min.js"></script>
+    <script src="~/Layout/Art Gallery/js/popper.min.js"></script>
+    <script src="~/Layout/Art Gallery/js/bootstrap.bundle.min.js"></script>
+    <!-- Plugins js -->
+    <script src="~/Layout/Art Gallery/js/plugins.js"></script>
+    <!-- Main js -->
+    <script src="~/Layout/Art Gallery/js/main.js"></script>
+    @RenderSection("Scripts", required: false)
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: '@TempData["Success"]',
+                type: "success",
+            });
+        </script>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: '@TempData["Error"]',
+                type: "error",
+            });
+        </script>
+    }
+    <script>
+        //<![CDATA[
+        $(window).bind("load", function () {
+            jQuery("#status").delay(1000).fadeOut();
+            jQuery("#loader").delay(1000).fadeOut();
+        });
+                                                                                                //]]>
+    </script>
+</body>
+
+</html>

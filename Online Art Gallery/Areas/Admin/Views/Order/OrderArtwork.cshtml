@@ -1,0 +1,104 @@
+﻿@using Online_Art_Gallery.Models;
+
+@{
+    ViewBag.Title = "OrderArtwork";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var Order = (List<Order>)ViewData["orders"];
+    var Payment = (List<PaymentMethod>)ViewData["paymentmethods"];
+    var User = (List<User>)ViewData["users"];
+}
+
+<!-- [ content ] Start -->
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Order Artwork Home</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("OrderArtwork","Order")">Order Artwork</a></li>
+            <li class="breadcrumb-item active"><a href="">Home</a></li>
+        </ol>
+    </div>
+
+
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Artwork List </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+                        <div class="col-sm-6">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table table-bordered table-striped mb-0" style="text-align:center"> 
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>User</th>
+                                    <th>Phone</th>
+                                    <th>Order_Date</th>
+                                    <th>Order_Price</th>
+                                    <th>Status</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var order in Order)
+                                {
+                                    DateTime date = (DateTime)order.Order_Date;
+                                <tr>
+                                    <td>@order.Id</td>
+                                    @foreach (var user in User)
+                                    {
+                                        if (order.Id_User == user.Id)
+                                        {
+                                            <td>@user.Name</td>
+                                            <td>@user.Phone</td>
+                                        }
+                                    }
+                                    <td>@date.ToString("MMMM dd, yyyy")</td>
+                                    <td>$ @order.Order_Price.00</td>
+                                    
+                                    @if (order.Status == 0)
+                                    {
+                                        <td>
+                                            <span class="spinner-border spinner-border-sm text-primary"></span>
+                                            Pending..
+                                        </td>
+
+                                    }
+                                    else if (order.Status == 1)
+                                    {
+                                        <td>
+                                            <span class="spinner-grow text-success spinner-grow-sm"></span>
+                                            Processed..
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <span class="spinner-grow text-danger spinner-grow-sm"></span>
+                                            Cancelled..
+                                        </td>
+                                    }
+                                    <td>
+                                        <a href="@Url.Action("OrderArtworkDetail","Order", new { id = @order.Id })" class="btn btn-info btn-sm">
+                                            <i class="fa fa-eye" aria-hidden="true"></i> View
+                                        </a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+<!-- [ content ] End -->

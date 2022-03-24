@@ -1,0 +1,284 @@
+﻿@using Online_Art_Gallery.Models
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    User user = ViewBag.User;
+}
+<!-- START PAGE BANNER SECTION -->
+<div class="page-banner-section section page-banner-aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="page-banner-content">
+                    <h1>ForgotPassword</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#">Home</a></li>
+                        <li class="active">ForgotPassword page</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END PAGE BANNER SECTION -->
+<div class="page-section section pt-120 pb-80">
+    <div class="container">
+        <div class="title-eltdf pb-100">
+            <p class="wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.5s">History of art department</p>
+            <div class="eltdf-st-title">
+                <span class="eltdf-st-title-inner">
+                    <span class="eltdf-st-side-line-left wow fadeInLeft" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                    <h1 class="wow fadeInUp " data-wow-duration="1s" data-wow-delay="1s">
+                        Profile
+                    </h1>
+                    <span class="eltdf-st-side-line-right wow fadeInRight" data-wow-duration="1s" data-wow-delay="1.5s"></span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-12">
+                <div class="user-infomation">
+                    <div class="user-img mb-30">
+                        @if (user.Picture == null)
+                        {
+                            if (user.Gender == true)
+                            {
+                                <img src="~/Content/Images/User/male.jpg" alt="">
+                            }
+                            else
+                            {
+                                <img src="~/Content/Images/User/female.jpg" alt="">
+                            }
+                        }
+                        else
+                        {
+                            <img src="~/Content/Images/User/@user.Picture" alt="">
+                        }
+
+                    </div>
+                    <div class="user-button-action tab">
+                        <button class="tablinks active" onclick="openActionUser(event,'Profile')">Profile</button>
+
+                        <button class="tablinks" onclick="openActionUser(event,'Update_Profile')">Update Profile</button>
+
+                        <button class="tablinks" onclick="openActionUser(event,'Change_Password')">Change Password</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-8 col-lg-8 col-md-8 col-12 mx-auto user-profile-form">
+                <div id="Profile" class="ActionUser">
+                    <div class="user-info">
+                        <div class="login-reg-form">
+                            <form action="#">
+                                <div class="row">
+                                    <div class="  col-12 mb-20">
+                                        <label for="user_name"> Name <span class="required">*</span></label>
+                                        <input id="user_name" name="user_name" type="text" disabled value="@user.Name" />
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="user_name">Email <span class="required">*</span></label>
+                                        <input id="user_name" name="user_name" type="text" disabled value="@user.Email" />
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="user_name">Phone <span class="required">*</span></label>
+                                        <input id="user_name" name="user_name" type="text" disabled value="@user.Phone" />
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="user_name">Address <span class="required">*</span></label>
+                                        <input id="user_name" name="user_name" type="text" disabled value="@user.Address" />
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        @{
+                                            DateTime date = (DateTime)@user.BirthDate;
+                                        }
+                                        <label for="user_name">BirthDate<span class="required">*</span></label>
+                                        <input id="user_name" name="user_name" type="text" disabled value="@date.ToString("MMMM dd, yyyy")" />
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="user_name">Gender <span class="required">*</span></label>
+                                        @if (user.Gender == true)
+                                        {
+                                            <input id="user_name" name="user_name" type="text" disabled value="Male" />
+                                        }
+                                        else
+                                        {
+                                            <input id="user_name" name="user_name" type="text" disabled value="Female" />
+                                        }
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="Update_Profile" class="ActionUser" style="display:none">
+                    <div class="user-update">
+                        <div class="login-reg-form">
+                            <form action="@Url.Action("UpdateProfile","Home")" method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-12 mb-20 d-none">
+                                        <label for="name"> Name <span class="required">*</span></label>
+                                        <input id="name" name="id" type="text" value="@user.Id" />
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label for="name"> Name <span class="required">*</span></label>
+                                        <input id="name" name="name" type="text" value="@user.Name" />
+                                        @if (TempData["name-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["name-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label for="picture"> Image <span class="required">*</span></label>
+                                        <input id="picture" name="picture" type="file" />
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="email">Email <span class="required">*</span></label>
+                                        <input id="email" name="email" type="email" value="@user.Email" />
+                                        @if (TempData["email-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["email-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="phone">Phone <span class="required">*</span></label>
+                                        <input id="phone" name="phone" type="text" value="@user.Phone" />
+                                        @if (TempData["phone-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["phone-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="address">Address <span class="required">*</span></label>
+                                        <input id="address" name="address" type="text" value="@user.Address" />
+                                        @if (TempData["address-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["address-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="birthdate">BirthDate<span class="required">*</span></label>
+                                        <input id="birthdate_up" name="birth_date" type="date" value="@user.BirthDate" />
+                                        @if (TempData["birth_date-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["birth_date-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12 mb-20">
+                                        <label>Gender <span class="required">*</span></label>
+                                        <div class="gender-check">
+                                            @if (@user.Gender == true)
+                                            {
+                                                <div class="form-check">
+                                                    <input type="radio" name="gender" value="true" checked>
+                                                    <label for="">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-right">
+                                                    <input type="radio" name="gender" value="false">
+                                                    <label for="">Female</label>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="form-check">
+                                                    <input type="radio" name="gender" value="true">
+                                                    <label for="">Male</label>
+                                                </div>
+                                                <div class="form-check form-check-right">
+                                                    <input type="radio" name="gender" value="false" checked>
+                                                    <label for="">Female</label>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <input value="Save" type="submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="Change_Password" class="ActionUser" style="display:none">
+                    <div class="user-change-password">
+                        <div class="login-reg-form">
+                            <h1>Change Password</h1>
+                            <p>For account security, please do not share your password with others</p>
+                            <form action="@Url.Action("ChangePassword","Home")" method="post">
+                                <div class="row">
+                                    <div class="col-12 mb-20 d-none">
+                                        <label for="name"> Name <span class="required">*</span></label>
+                                        <input id="name" name="id" type="text" value="@user.Id" />
+                                    </div>
+                                    <div class="col-12 mb-20">
+                                        <label for="old_password"> Your Current Password <span class="required">*</span></label>
+                                        <input id="old_password" name="old_password" type="password" placeholder="Your Current Password" />
+                                        @if (TempData["old_password-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["old_password-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="new_password">New Password <span class="required">*</span></label>
+                                        <input id="new_password" name="new_password" type="password" placeholder="New Password" />
+                                        @if (TempData["new_password-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["new_password-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class=" col-12 mb-20">
+                                        <label for="confirm_password">Confirm Password <span class="required">*</span></label>
+                                        <input id="confirm_password" name="confirm_password" type="password" placeholder="Confirm Password" />
+                                        @if (TempData["confirm_password-validation"] != null)
+                                        {
+                                            <span class="required">@TempData["confirm_password-validation"]</span>
+                                        }
+                                    </div>
+                                    <div class="col-12">
+                                        <input value="Save" type="submit">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function openActionUser(evt, ActionName) {
+            var i;
+            var x = document.getElementsByClassName("tablinks");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            evt.currentTarget.className += " active";
+
+            var y = document.getElementsByClassName("ActionUser");
+            for (i = 0; i < y.length; i++) {
+                y[i].style.display = "none";
+            }
+            document.getElementById(ActionName).style.display = "block";
+
+            $(this).addClass("active");
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            var s_day = @date.Day;
+            var s_month = @date.Month;
+            var s_year = @date.Year;
+
+            if (s_month < 10) s_month = "0" + s_month;
+            if (s_day < 10) s_day = "0" + s_day;
+
+            var s_today = s_year + "-" + s_month + "-" + s_day;
+            $("#birthdate_up").attr("value", s_today);
+
+        });
+
+
+    </script>
+}

@@ -1,0 +1,77 @@
+﻿@using Online_Art_Gallery.Models;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var Rating = (List<Rating>)ViewData["ratings"];
+}
+
+<!-- [ content ] Start -->
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Rating Home</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Rating")">Rating</a></li>
+            <li class="breadcrumb-item active"><a href="#">Home</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Rating List </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row align-items-center m-l-0">
+
+                    </div>
+                    <div class="table-responsive">
+                        <table id="report-table" class="table table-bordered table-striped mb-0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>User</th>
+                                    <th>Artwork</th>
+                                    <th>Image</th>
+                                    <th>Rating</th>
+                                    <th>Published Date</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var rating in Rating)
+                                {
+                                <tr>
+                                    <td>@rating.Id</td>
+                                    <td>@rating.User.Name</td>
+                                    <td>@rating.Artwork.Name</td>
+                                    <td><img src="~/Content/Images/Artwork/@rating.Artwork.Picture" class="img-radius" width="30px" height="30px"></td>
+                                    @{ 
+                                        int age = (int)rating.Rating_Number;
+                                        DateTime date = (DateTime)rating.Published_Date;
+                                    }
+                                    <td>
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <i class="fa fa-star @(i <= age ? "hd-rating-active" : "")"></i>
+                                        }
+                                                                    </td>
+                                    <td>@date.ToString("MMMM dd, yyyy")</td>
+                                    <td>
+                                        <a href="@Url.Action("Detail","Rating", new { id = rating.Id })" class="btn btn-info btn-sm"> <i class="feather icon-eye"></i> View</a>
+                                    </td>
+                                </tr>
+
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+<!-- [ content ] End -->

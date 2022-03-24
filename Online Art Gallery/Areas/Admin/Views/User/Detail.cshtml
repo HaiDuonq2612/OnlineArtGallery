@@ -1,0 +1,96 @@
+﻿@using Online_Art_Gallery.Models;
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    User user = ViewBag.User;
+    DateTime date = (DateTime)user.BirthDate;
+}
+
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">User</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","User")">User</a></li>
+            <li class="breadcrumb-item active"><a href="#!">Detail</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-lg-8 col-12 mx-auto">
+            <div class="card">
+                <div class="card-header card-header-form">
+                    <h5>User Detail </h5>
+                </div>
+                <div class="card-body card-detail">
+                    <form action="#" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Id</label>
+                                    <input name="id" type="text" class="form-control" id="Name" placeholder="" value="@user.Id" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@user.Name" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Email</label>
+                                    <input name="email" type="text" class="form-control" id="Name" placeholder="" value="@user.Email" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@user.Phone" disabled>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Descreption">Descreption</label>
+                                    <textarea name="descreption" class="form-control" id="Descreption" rows="3" disabled>@user.Address</textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@date.ToString("MM-dd-yyyy")" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    @if (user.Gender == true)
+                                    {
+                                        <input name="Status" type="text" class="form-control" id="Status" placeholder="" value="Male" disabled>
+                                    }
+                                    else
+                                    {
+                                        <input name="Status" type="text" class="form-control" id="Status" placeholder="" value="FeMale" disabled>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label class="floating-label" for="Name">Name</label>
+                                    <input name="name" type="text" class="form-control" id="Name" placeholder="" value="@user.Login_Name" disabled>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <a href="@Url.Action("Index","User")" class="btn btn-danger">Return</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+

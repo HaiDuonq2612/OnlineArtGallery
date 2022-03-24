@@ -1,0 +1,1077 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ArtGalleryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" />
+          <Property Name="Birth_Date" Type="date" />
+          <Property Name="Death_Date" Type="date" />
+          <Property Name="Birth_Place" Type="ntext" />
+          <Property Name="Style" Type="nvarchar" MaxLength="300" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Artwork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" />
+          <Property Name="Price" Type="float" />
+          <Property Name="Sale_Price" Type="float" />
+          <Property Name="Year" Type="date" />
+          <Property Name="Size" Type="nvarchar" MaxLength="300" />
+          <Property Name="Type" Type="nvarchar" MaxLength="300" />
+          <Property Name="Technique" Type="nvarchar" MaxLength="300" />
+          <Property Name="Id_Artist" Type="int" />
+          <Property Name="Id_Category" Type="int" />
+          <Property Name="Owner" Type="int" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="Total_Rating" Type="int" />
+          <Property Name="Total_Rating_Points" Type="int" />
+        </EntityType>
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="varchar" MaxLength="500" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="varchar" MaxLength="500" />
+          <Property Name="Detail" Type="ntext" />
+          <Property Name="Date" Type="datetime" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Id_Artwork" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Exhibition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="varchar" MaxLength="500" />
+          <Property Name="Start_Date" Type="date" />
+          <Property Name="End_Date" Type="date" />
+          <Property Name="Starting_Price" Type="float" />
+          <Property Name="Address" Type="ntext" />
+          <Property Name="Owner" Type="int" />
+          <Property Name="Detail" Type="ntext" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Order_Price" Type="float" />
+          <Property Name="Order_Date" Type="date" />
+          <Property Name="Id_PaymentMethod" Type="int" />
+          <Property Name="Different_Address" Type="ntext" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_Order" Type="int" />
+          <Property Name="Id_Artwork" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="OrderExhibition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Id_Exhibition" Type="int" />
+          <Property Name="Bet_Price" Type="float" />
+          <Property Name="Bet_Date" Type="date" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Id_Artwork" Type="int" />
+          <Property Name="Rating_Number" Type="int" />
+          <Property Name="Published_Date" Type="date" />
+          <Property Name="Descreption" Type="ntext" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" />
+          <Property Name="Email" Type="nvarchar" MaxLength="300" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="10" />
+          <Property Name="Address" Type="ntext" />
+          <Property Name="BirthDate" Type="date" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Login_Name" Type="nvarchar" MaxLength="150" />
+          <Property Name="Login_Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="Code_Password" Type="varchar" MaxLength="10" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id_User" Type="int" />
+          <Property Name="Id_Artwork" Type="int" />
+        </EntityType>
+        <Association Name="FK__Artwork__Id_Arti__145C0A3F">
+          <End Role="Artist" Type="Self.Artist" Multiplicity="0..1" />
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artwork">
+              <PropertyRef Name="Id_Artist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Artwork__Id_Cate__15502E78">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artwork">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Id_Artwork__286302EC">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Id_User__276EDEB3">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Id_Paymen__20C1E124">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_PaymentMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Id_User__1FCDBCEB">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Id_Ar__24927208">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Id_Or__239E4DCF">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Id_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderExhi__Id_Ex__2C3393D0">
+          <End Role="Exhibition" Type="Self.Exhibition" Multiplicity="0..1" />
+          <End Role="OrderExhibition" Type="Self.OrderExhibition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exhibition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderExhibition">
+              <PropertyRef Name="Id_Exhibition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderExhi__Id_Us__2B3F6F97">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="OrderExhibition" Type="Self.OrderExhibition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderExhibition">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__Id_Artwo__37A5467C">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__Id_User__36B12243">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__Id_Art__300424B4">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__Id_Use__2F10007B">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArtGalleryModelStoreContainer">
+          <EntitySet Name="Artist" EntityType="Self.Artist" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Artwork" EntityType="Self.Artwork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exhibition" EntityType="Self.Exhibition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderExhibition" EntityType="Self.OrderExhibition" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PaymentMethod" EntityType="Self.PaymentMethod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rating" EntityType="Self.Rating" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wishlist" EntityType="Self.Wishlist" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Artwork__Id_Arti__145C0A3F" Association="Self.FK__Artwork__Id_Arti__145C0A3F">
+            <End Role="Artist" EntitySet="Artist" />
+            <End Role="Artwork" EntitySet="Artwork" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Artwork__Id_Cate__15502E78" Association="Self.FK__Artwork__Id_Cate__15502E78">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Artwork" EntitySet="Artwork" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Id_Artwork__286302EC" Association="Self.FK__Cart__Id_Artwork__286302EC">
+            <End Role="Artwork" EntitySet="Artwork" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Id_User__276EDEB3" Association="Self.FK__Cart__Id_User__276EDEB3">
+            <End Role="User" EntitySet="User" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Id_Paymen__20C1E124" Association="Self.FK__Order__Id_Paymen__20C1E124">
+            <End Role="PaymentMethod" EntitySet="PaymentMethod" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Id_User__1FCDBCEB" Association="Self.FK__Order__Id_User__1FCDBCEB">
+            <End Role="User" EntitySet="User" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Id_Ar__24927208" Association="Self.FK__OrderDeta__Id_Ar__24927208">
+            <End Role="Artwork" EntitySet="Artwork" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Id_Or__239E4DCF" Association="Self.FK__OrderDeta__Id_Or__239E4DCF">
+            <End Role="Order" EntitySet="Order" />
+            <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderExhi__Id_Ex__2C3393D0" Association="Self.FK__OrderExhi__Id_Ex__2C3393D0">
+            <End Role="Exhibition" EntitySet="Exhibition" />
+            <End Role="OrderExhibition" EntitySet="OrderExhibition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderExhi__Id_Us__2B3F6F97" Association="Self.FK__OrderExhi__Id_Us__2B3F6F97">
+            <End Role="User" EntitySet="User" />
+            <End Role="OrderExhibition" EntitySet="OrderExhibition" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__Id_Artwo__37A5467C" Association="Self.FK__Rating__Id_Artwo__37A5467C">
+            <End Role="Artwork" EntitySet="Artwork" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__Id_User__36B12243" Association="Self.FK__Rating__Id_User__36B12243">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__Id_Art__300424B4" Association="Self.FK__Wishlist__Id_Art__300424B4">
+            <End Role="Artwork" EntitySet="Artwork" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__Id_Use__2F10007B" Association="Self.FK__Wishlist__Id_Use__2F10007B">
+            <End Role="User" EntitySet="User" />
+            <End Role="Wishlist" EntitySet="Wishlist" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ArtGalleryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Artist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Birth_Date" Type="DateTime" Precision="0" />
+          <Property Name="Death_Date" Type="DateTime" Precision="0" />
+          <Property Name="Birth_Place" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Style" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Artworks" Relationship="Self.FK__Artwork__Id_Arti__145C0A3F" FromRole="Artist" ToRole="Artwork" />
+        </EntityType>
+        <EntityType Name="Artwork">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" />
+          <Property Name="Sale_Price" Type="Double" />
+          <Property Name="Year" Type="DateTime" Precision="0" />
+          <Property Name="Size" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Technique" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Id_Artist" Type="Int32" />
+          <Property Name="Id_Category" Type="Int32" />
+          <Property Name="Owner" Type="Int32" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="Total_Rating" Type="Int32" />
+          <Property Name="Total_Rating_Points" Type="Int32" />
+          <NavigationProperty Name="Artist" Relationship="Self.FK__Artwork__Id_Arti__145C0A3F" FromRole="Artwork" ToRole="Artist" />
+          <NavigationProperty Name="Category" Relationship="Self.FK__Artwork__Id_Cate__15502E78" FromRole="Artwork" ToRole="Category" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__Id_Artwork__286302EC" FromRole="Artwork" ToRole="Cart" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Id_Ar__24927208" FromRole="Artwork" ToRole="OrderDetail" />
+          <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__Id_Artwo__37A5467C" FromRole="Artwork" ToRole="Rating" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Id_Art__300424B4" FromRole="Artwork" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="Banner">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Blog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Id_Artwork" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Artwork" Relationship="Self.FK__Cart__Id_Artwork__286302EC" FromRole="Cart" ToRole="Artwork" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Cart__Id_User__276EDEB3" FromRole="Cart" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Artworks" Relationship="Self.FK__Artwork__Id_Cate__15502E78" FromRole="Category" ToRole="Artwork" />
+        </EntityType>
+        <EntityType Name="Exhibition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Start_Date" Type="DateTime" Precision="0" />
+          <Property Name="End_Date" Type="DateTime" Precision="0" />
+          <Property Name="Starting_Price" Type="Double" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Owner" Type="Int32" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="OrderExhibitions" Relationship="Self.FK__OrderExhi__Id_Ex__2C3393D0" FromRole="Exhibition" ToRole="OrderExhibition" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Order_Price" Type="Double" />
+          <Property Name="Order_Date" Type="DateTime" Precision="0" />
+          <Property Name="Id_PaymentMethod" Type="Int32" />
+          <Property Name="Different_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="PaymentMethod" Relationship="Self.FK__Order__Id_Paymen__20C1E124" FromRole="Order" ToRole="PaymentMethod" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Order__Id_User__1FCDBCEB" FromRole="Order" ToRole="User" />
+          <NavigationProperty Name="OrderDetails" Relationship="Self.FK__OrderDeta__Id_Or__239E4DCF" FromRole="Order" ToRole="OrderDetail" />
+        </EntityType>
+        <EntityType Name="OrderDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_Order" Type="Int32" />
+          <Property Name="Id_Artwork" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Artwork" Relationship="Self.FK__OrderDeta__Id_Ar__24927208" FromRole="OrderDetail" ToRole="Artwork" />
+          <NavigationProperty Name="Order" Relationship="Self.FK__OrderDeta__Id_Or__239E4DCF" FromRole="OrderDetail" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="OrderExhibition">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Id_Exhibition" Type="Int32" />
+          <Property Name="Bet_Price" Type="Double" />
+          <Property Name="Bet_Date" Type="DateTime" Precision="0" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Exhibition" Relationship="Self.FK__OrderExhi__Id_Ex__2C3393D0" FromRole="OrderExhibition" ToRole="Exhibition" />
+          <NavigationProperty Name="User" Relationship="Self.FK__OrderExhi__Id_Us__2B3F6F97" FromRole="OrderExhibition" ToRole="User" />
+        </EntityType>
+        <EntityType Name="PaymentMethod">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Id_Paymen__20C1E124" FromRole="PaymentMethod" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Rating">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Id_Artwork" Type="Int32" />
+          <Property Name="Rating_Number" Type="Int32" />
+          <Property Name="Published_Date" Type="DateTime" Precision="0" />
+          <Property Name="Descreption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Artwork" Relationship="Self.FK__Rating__Id_Artwo__37A5467C" FromRole="Rating" ToRole="Artwork" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Rating__Id_User__36B12243" FromRole="Rating" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Login_Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Login_Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Code_Password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Carts" Relationship="Self.FK__Cart__Id_User__276EDEB3" FromRole="User" ToRole="Cart" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order__Id_User__1FCDBCEB" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="OrderExhibitions" Relationship="Self.FK__OrderExhi__Id_Us__2B3F6F97" FromRole="User" ToRole="OrderExhibition" />
+          <NavigationProperty Name="Ratings" Relationship="Self.FK__Rating__Id_User__36B12243" FromRole="User" ToRole="Rating" />
+          <NavigationProperty Name="Wishlists" Relationship="Self.FK__Wishlist__Id_Use__2F10007B" FromRole="User" ToRole="Wishlist" />
+        </EntityType>
+        <EntityType Name="Wishlist">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id_User" Type="Int32" />
+          <Property Name="Id_Artwork" Type="Int32" />
+          <NavigationProperty Name="Artwork" Relationship="Self.FK__Wishlist__Id_Art__300424B4" FromRole="Wishlist" ToRole="Artwork" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Wishlist__Id_Use__2F10007B" FromRole="Wishlist" ToRole="User" />
+        </EntityType>
+        <Association Name="FK__Artwork__Id_Arti__145C0A3F">
+          <End Role="Artist" Type="Self.Artist" Multiplicity="0..1" />
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artist">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artwork">
+              <PropertyRef Name="Id_Artist" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Artwork__Id_Cate__15502E78">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Artwork">
+              <PropertyRef Name="Id_Category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Id_Artwork__286302EC">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Id_Ar__24927208">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__Id_Artwo__37A5467C">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__Id_Art__300424B4">
+          <End Role="Artwork" Type="Self.Artwork" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Artwork">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="Id_Artwork" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cart__Id_User__276EDEB3">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderExhi__Id_Ex__2C3393D0">
+          <End Role="Exhibition" Type="Self.Exhibition" Multiplicity="0..1" />
+          <End Role="OrderExhibition" Type="Self.OrderExhibition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exhibition">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderExhibition">
+              <PropertyRef Name="Id_Exhibition" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Id_Paymen__20C1E124">
+          <End Role="PaymentMethod" Type="Self.PaymentMethod" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentMethod">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_PaymentMethod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order__Id_User__1FCDBCEB">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Id_Or__239E4DCF">
+          <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+          <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="Id_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderExhi__Id_Us__2B3F6F97">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="OrderExhibition" Type="Self.OrderExhibition" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OrderExhibition">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Rating__Id_User__36B12243">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Rating" Type="Self.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wishlist__Id_Use__2F10007B">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Wishlist" Type="Self.Wishlist" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wishlist">
+              <PropertyRef Name="Id_User" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ArtGalleryEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Artists" EntityType="Self.Artist" />
+          <EntitySet Name="Artworks" EntityType="Self.Artwork" />
+          <EntitySet Name="Banners" EntityType="Self.Banner" />
+          <EntitySet Name="Blogs" EntityType="Self.Blog" />
+          <EntitySet Name="Carts" EntityType="Self.Cart" />
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Exhibitions" EntityType="Self.Exhibition" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
+          <EntitySet Name="OrderExhibitions" EntityType="Self.OrderExhibition" />
+          <EntitySet Name="PaymentMethods" EntityType="Self.PaymentMethod" />
+          <EntitySet Name="Ratings" EntityType="Self.Rating" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="Wishlists" EntityType="Self.Wishlist" />
+          <AssociationSet Name="FK__Artwork__Id_Arti__145C0A3F" Association="Self.FK__Artwork__Id_Arti__145C0A3F">
+            <End Role="Artist" EntitySet="Artists" />
+            <End Role="Artwork" EntitySet="Artworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Artwork__Id_Cate__15502E78" Association="Self.FK__Artwork__Id_Cate__15502E78">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="Artwork" EntitySet="Artworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Id_Artwork__286302EC" Association="Self.FK__Cart__Id_Artwork__286302EC">
+            <End Role="Artwork" EntitySet="Artworks" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Id_Ar__24927208" Association="Self.FK__OrderDeta__Id_Ar__24927208">
+            <End Role="Artwork" EntitySet="Artworks" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__Id_Artwo__37A5467C" Association="Self.FK__Rating__Id_Artwo__37A5467C">
+            <End Role="Artwork" EntitySet="Artworks" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__Id_Art__300424B4" Association="Self.FK__Wishlist__Id_Art__300424B4">
+            <End Role="Artwork" EntitySet="Artworks" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cart__Id_User__276EDEB3" Association="Self.FK__Cart__Id_User__276EDEB3">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderExhi__Id_Ex__2C3393D0" Association="Self.FK__OrderExhi__Id_Ex__2C3393D0">
+            <End Role="Exhibition" EntitySet="Exhibitions" />
+            <End Role="OrderExhibition" EntitySet="OrderExhibitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Id_Paymen__20C1E124" Association="Self.FK__Order__Id_Paymen__20C1E124">
+            <End Role="PaymentMethod" EntitySet="PaymentMethods" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order__Id_User__1FCDBCEB" Association="Self.FK__Order__Id_User__1FCDBCEB">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Id_Or__239E4DCF" Association="Self.FK__OrderDeta__Id_Or__239E4DCF">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderExhi__Id_Us__2B3F6F97" Association="Self.FK__OrderExhi__Id_Us__2B3F6F97">
+            <End Role="User" EntitySet="Users" />
+            <End Role="OrderExhibition" EntitySet="OrderExhibitions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Rating__Id_User__36B12243" Association="Self.FK__Rating__Id_User__36B12243">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wishlist__Id_Use__2F10007B" Association="Self.FK__Wishlist__Id_Use__2F10007B">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Wishlist" EntitySet="Wishlists" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ArtGalleryModelStoreContainer" CdmEntityContainer="ArtGalleryEntities">
+          <EntitySetMapping Name="Artists">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Artist">
+              <MappingFragment StoreEntitySet="Artist">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Birth_Date" ColumnName="Birth_Date" />
+                <ScalarProperty Name="Death_Date" ColumnName="Death_Date" />
+                <ScalarProperty Name="Birth_Place" ColumnName="Birth_Place" />
+                <ScalarProperty Name="Style" ColumnName="Style" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Artworks">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Artwork">
+              <MappingFragment StoreEntitySet="Artwork">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Sale_Price" ColumnName="Sale_Price" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Size" ColumnName="Size" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Technique" ColumnName="Technique" />
+                <ScalarProperty Name="Id_Artist" ColumnName="Id_Artist" />
+                <ScalarProperty Name="Id_Category" ColumnName="Id_Category" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Total_Rating" ColumnName="Total_Rating" />
+                <ScalarProperty Name="Total_Rating_Points" ColumnName="Total_Rating_Points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Banners">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Banner">
+              <MappingFragment StoreEntitySet="Banner">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Blog">
+              <MappingFragment StoreEntitySet="Blog">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Artwork" ColumnName="Id_Artwork" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exhibitions">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Exhibition">
+              <MappingFragment StoreEntitySet="Exhibition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Start_Date" ColumnName="Start_Date" />
+                <ScalarProperty Name="End_Date" ColumnName="End_Date" />
+                <ScalarProperty Name="Starting_Price" ColumnName="Starting_Price" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Order_Price" ColumnName="Order_Price" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order_Date" />
+                <ScalarProperty Name="Id_PaymentMethod" ColumnName="Id_PaymentMethod" />
+                <ScalarProperty Name="Different_Address" ColumnName="Different_Address" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="ArtGalleryModel.OrderDetail">
+              <MappingFragment StoreEntitySet="OrderDetail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_Order" ColumnName="Id_Order" />
+                <ScalarProperty Name="Id_Artwork" ColumnName="Id_Artwork" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderExhibitions">
+            <EntityTypeMapping TypeName="ArtGalleryModel.OrderExhibition">
+              <MappingFragment StoreEntitySet="OrderExhibition">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Exhibition" ColumnName="Id_Exhibition" />
+                <ScalarProperty Name="Bet_Price" ColumnName="Bet_Price" />
+                <ScalarProperty Name="Bet_Date" ColumnName="Bet_Date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PaymentMethods">
+            <EntityTypeMapping TypeName="ArtGalleryModel.PaymentMethod">
+              <MappingFragment StoreEntitySet="PaymentMethod">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ratings">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Rating">
+              <MappingFragment StoreEntitySet="Rating">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Artwork" ColumnName="Id_Artwork" />
+                <ScalarProperty Name="Rating_Number" ColumnName="Rating_Number" />
+                <ScalarProperty Name="Published_Date" ColumnName="Published_Date" />
+                <ScalarProperty Name="Descreption" ColumnName="Descreption" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ArtGalleryModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Login_Name" ColumnName="Login_Name" />
+                <ScalarProperty Name="Login_Password" ColumnName="Login_Password" />
+                <ScalarProperty Name="Code_Password" ColumnName="Code_Password" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wishlists">
+            <EntityTypeMapping TypeName="ArtGalleryModel.Wishlist">
+              <MappingFragment StoreEntitySet="Wishlist">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Id_User" ColumnName="Id_User" />
+                <ScalarProperty Name="Id_Artwork" ColumnName="Id_Artwork" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

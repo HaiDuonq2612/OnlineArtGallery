@@ -1,0 +1,36 @@
+﻿.sidenav.sidenav-vertical.bg-white .sidenav-item.active > .sidenav-link:not(.sidenav-toggle).hd-active {
+    background-color: transparent;
+}
+
+.hd-active {
+    background-color: transparent;
+}
+
+.card-body{
+}
+.table td {
+    vertical-align: middle;
+}
+form label .required,  form .required {
+    color: #ff0000;
+}
+.form-control:disabled{
+    text-align:center;
+}
+.img-detail{
+    text-align: center;
+}
+.hd-rating-active{
+    color: #ffc741;
+}
+.hd-status-ex {
+    text-align: center;
+    border-bottom: 1px dotted rgba(24, 28, 33, 0.3) !important;
+    color: #77757a !important;
+    padding: 10px 0;
+}
+@media only screen and (min-width: 1024px) {
+    .card-detail{
+        padding: 1.5rem 7.5rem;
+    }
+}

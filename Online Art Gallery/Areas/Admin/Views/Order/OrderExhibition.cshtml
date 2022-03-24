@@ -1,0 +1,77 @@
+﻿@using Online_Art_Gallery.Models;
+@{
+    ViewBag.Title = "OrderExhibition";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var Exhibitions = (List<Exhibition>)ViewData["exhibitions"];
+}
+
+<!-- [ content ] Start -->
+<div class="container-fluid flex-grow-1 container-p-y">
+    <h4 class="font-weight-bold py-3 mb-0">Order Exhibiton Home</h4>
+    <div class="text-muted small mt-0 mb-4 d-block breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")"><i class="feather icon-home"></i></a></li>
+            <li class="breadcrumb-item"><a href="@Url.Action("OrderExhibition","Order")">Order Exhibition</a></li>
+            <li class="breadcrumb-item active"><a href="">Home</a></li>
+        </ol>
+    </div>
+
+    <div class="row">
+        <!-- subscribe start -->
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Order Exhibition List </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="report-table" class="table table-bordered table-striped mb-0" style="text-align:center">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Options</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var exhibition in Exhibitions)
+                                {
+                                    DateTime date_start = (DateTime)exhibition.Start_Date;
+                                    DateTime date_end = (DateTime)exhibition.End_Date;
+                                    <tr>
+                                        <td>@exhibition.Id</td>
+                                        <td><img src="~/Content/Images/Exhibition/@exhibition.Picture" class="img-radius" width="30px" height="30px"></td>
+                                        <td>@exhibition.Name</td>
+                                        <td>@date_start.ToString("MMM dd, yyyy") - @date_end.ToString("MMM dd, yyyy")</td>
+                                        @if (@exhibition.Status == true)
+                                        {
+                                            <td>
+                                                <span class="spinner-grow text-success spinner-grow-sm"></span>
+                                                Processed..
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                <span class="spinner-border spinner-border-sm text-primary"></span>
+                                                Pending..
+                                            </td>
+                                        }
+                                        <td>
+                                            <a href="@Url.Action("OrderExhibitionDetail","Order", new { id = @exhibition.Id })" class="btn btn-info btn-sm"><i class="feather icon-eye"></i> View</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- subscribe end -->
+    </div>
+</div>
+<!-- [ content ] End -->
